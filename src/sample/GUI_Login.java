@@ -96,7 +96,7 @@ public class GUI_Login extends Composite {
             	File file  = new File(path);				//Pfad zu file
             	if(file.exists()) {							//Test falls file schon existiert oder erzeugt werden soll
 				try {
-					pasman=new PasswordManager(file,password);
+					pasman=new PasswordManager(file,password); //neue Instanz vom PasswordManager ohne die Datenbank zu erzeugen
 				} catch (IOException e1) {
 					
 					e1.printStackTrace();
@@ -106,7 +106,7 @@ public class GUI_Login extends Composite {
 				}
             	else {
             		try {
-            		pasman=new PasswordManager(file,"Passwordbase",password);
+            		pasman=new PasswordManager(file,"Passwordbase",password); //neue Instanz vom PasswordManager mit zu erzeugender Datenbank
             		} catch(IOException e1) {
             			
             			e1.printStackTrace();

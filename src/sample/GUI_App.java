@@ -55,11 +55,6 @@ public class GUI_App extends Composite {
 	public GUI_App(Composite parent, int style) {
 		
 		super(parent, style);
-		ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		scrolledComposite.setBounds(10, 10, 106, 438);
-		scrolledComposite.setExpandHorizontal(true);
-		scrolledComposite.setExpandVertical(true);
-		scrolledComposite.setVisible(false);
 		Combo Name = new Combo(this, SWT.NONE);
 		Name.setBounds(315, 139, 120, 25);
 		
@@ -69,9 +64,9 @@ public class GUI_App extends Composite {
 		button2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				feld=pasman.getEntryByName(Name.getText());
-				text.setText(feld[1]);
-				text_1.setText(feld[2]);
+				feld=pasman.getEntryByName(Name.getText()); //Feld mit Passwort und Account
+				text.setText(feld[1]);	//Benutzername
+				text_1.setText(feld[2]); //Passwort
 			}
 		});	
 		Button button = new Button(this, SWT.NONE);
@@ -80,7 +75,7 @@ public class GUI_App extends Composite {
 		button.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(pushed_2) 
+				if(pushed_2) 	//Speichern des Eintrags
 				{
 					pasman.newEntry(Name.getText(), text_1.getText(), text.getText());
 					Name.add(Name.getText());
@@ -88,7 +83,7 @@ public class GUI_App extends Composite {
 					pushed_2=false;
 					text_1.setEnabled(false);
 					text.setEnabled(false);
-				}else {
+				}else {						//"Freischalten" des Bearbeiten
 				
 					text_1.setEnabled(true);
 					text.setEnabled(true);
@@ -109,7 +104,7 @@ public class GUI_App extends Composite {
 		Button btnLogout = new Button(this, SWT.NONE);
 		btnLogout.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent e) { //Ausloggen und neues Login Feld erstellen 
 				pasman.logout();
 				gl=new GUI_Login(parent,style);
 				gl.setVisible(true);
@@ -126,7 +121,7 @@ public class GUI_App extends Composite {
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				pasman.copyToClipboard("username",text.getText());
+				pasman.copyToClipboard("username",text.getText()); //Kopiert den Username zum Clipboard
 			}
 		});
 		btnNewButton.setText("Copy");
@@ -136,7 +131,7 @@ public class GUI_App extends Composite {
 		btnNewButton_1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				pasman.copyToClipboard("password",text_1.getText());
+				pasman.copyToClipboard("password",text_1.getText()); //Kopiert das Passwort zum Clipboard
 			}
 		});
 		btnNewButton_1.setBounds(459, 233, 75, 25);
@@ -152,15 +147,15 @@ public class GUI_App extends Composite {
 		btnNewButton_2.setText("Edit");
 		btnNewButton_2.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent e) { //Bearbeitet den vorhandenen Eintrag
 				if(pushed) {
-					//pasman.editEntryContent(pasman, text_1.getText(), text.getText());
-					text_1.setEnabled(false);//test obs geht
+													//Speichern des Bearbeiteten
+					text_1.setEnabled(false);
 					text.setEnabled(false);
 					btnNewButton_2.setText("Edit");
 					pasman.editEntryContent(Name.getText(), text_1.getText(), text.getText());
 				}
-				else {
+				else {						//"Freischalten" des Bearbeiten
 					text_1.setEnabled(true);
 					text.setEnabled(true);
 					pushed=true;
@@ -176,7 +171,7 @@ public class GUI_App extends Composite {
 			@Override
 			public void focusGained(FocusEvent e) {
 				pasman.deleteEntry(Name.getText());
-		});
+		}});
 		Label lblNewLabel_2 = new Label(this, SWT.NONE);
 		lblNewLabel_2.setText("Benutzername");
 		lblNewLabel_2.setBounds(183, 186, 106, 25);
